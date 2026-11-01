@@ -1,2 +1,2 @@
 # superagent-lab
-Sandbox for dsh-superagent trials
+Sandbox for dsh-superagent trials.
