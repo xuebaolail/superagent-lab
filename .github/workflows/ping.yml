@@ -1,0 +1,30 @@
+name: ping
+on:
+  push:
+    paths:
+      - 'ping-*.txt'
+permissions:
+  issues: write
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/github-script@v7
+        with:
+          script: |
+            const body = [
+              'The second line of `README.md` reads:',
+              '',
+              '    Sandbox for dsh-superagent trials',
+              '',
+              'It ends without punctuation. Please add the missing period so the line reads `Sandbox for dsh-superagent trials.` — nothing else in the file should change.',
+              '',
+              '@xuebaolail',
+            ].join('\n')
+            const created = await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'README: end the intro line with a period',
+              body,
+            })
+            core.info('created ' + created.data.html_url)
